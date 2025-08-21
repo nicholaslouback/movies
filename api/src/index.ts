@@ -5,8 +5,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/api", (_req, res) => {
-  res.json({ message: "API funcionando 🚀" });
+app.get("/", (_req, res) => {
+  res.json( "Rota Inicial" );
 });
 
 app.listen(3333, () => {
