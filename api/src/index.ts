@@ -34,7 +34,7 @@ app.post("/movies", async (req, res) => {
   }
 
   const newMovie = await prisma.movie.create({
-    data: { title, description, rating },
+    data: { title, description, rating: parseFloat(rating) },
   });
 
   res.status(201).json(newMovie);

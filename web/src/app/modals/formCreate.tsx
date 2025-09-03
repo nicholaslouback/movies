@@ -19,14 +19,44 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function AddMovieModal({ isOpen, onClose }: AddMovieModalProps) {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
-    resolver: zodResolver(schema)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
   });
 
-  function onSubmit(data: FormData) {
-    console.log("Dados enviados:", data);
-    onClose();
+  async function onSubmit(data: FormData) {
+    try {
+      const res = await fetch("http://localhost:3333/movies", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: data.name,
+          description: data.description,
+          rating: data.rating,
+        }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        alert(`Erro: ${errorData.error || "Falha ao criar filme"}`);
+        return;
+      }
+
+      const createdMovie = await res.json();
+      console.log("Filme criado:", createdMovie);
+
+      onClose();
+    } catch (err) {
+      console.error("Erro na requisição:", err);
+      alert("Erro ao criar filme");
+    }
   }
+
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>

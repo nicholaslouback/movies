@@ -12,13 +12,13 @@ export default function Home() {
       <main className="flex gap-[32px] row-start-2 items-center sm:items-start">
         <Link
           href="/movie"
-          className="bg-blue-500 gap-3 rounded-xl py-2 px-4 inline-block"
+          className="bg-blue-500 gap-3 rounded-xl py-2 px-4 inline-block hover:bg-blue-600"
         >
           Lista de Filmes
         </Link>
 
         <button
-          className="bg-blue-500 gap-3 rounded-xl py-2 px-4 cursor-pointer"
+          className="bg-blue-500 gap-3 rounded-xl py-2 px-4 cursor-pointer hover:bg-blue-600"
           onClick={() => setIsModalOpen(true)}
         >
           Adicionar Filme
